@@ -1,17 +1,31 @@
+podTemplate(
+  yaml: '''
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: kaniko
+    spec:
+      containers:
+      - name: kubectl
+        image: joshendriks/alpine-k8s
+        command:
+        - /bin/cat
+        tty: true    
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:debug
+        command:
+        - /busybox/cat
+        tty: true
+  '''
+){
+
 pipeline {
 
   options {
     ansiColor('xterm')
   }
 
-  agent {
-    kubernetes {
-      yamlFile 'builder.yaml'
-    }
-  }
-
-  stages {
-
+  node(POD_LABEL){
     stage('Kaniko Build & Push Image') {
       steps {
         container('kaniko') {
@@ -36,6 +50,9 @@ pipeline {
         }
       }
     }
+
+  }
+     
   
   }
 }
