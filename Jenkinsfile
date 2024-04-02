@@ -27,7 +27,7 @@ podTemplate(
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
-                             --destination=justmeandopensource/myweb:${BUILD_NUMBER}
+                             --destination=image --no-push
             '''
           }
         }
