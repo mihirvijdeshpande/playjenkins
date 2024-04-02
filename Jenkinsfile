@@ -24,6 +24,8 @@ podTemplate(
       
         container('kaniko') {
           script {
+            sh "git clone https://github.com/mihirvijdeshpande/playjenkins.git"
+            sh "git checkout kaniko"
             sh "sleep 600"
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
