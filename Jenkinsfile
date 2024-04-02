@@ -25,7 +25,7 @@ podTemplate(
       container('git'){
         script{
           sh "git clone https://github.com/mihirvijdeshpande/playjenkins.git"
-            sh "git checkout kaniko"
+            sh "cd playjenkins && git checkout kaniko"
         }
       }
     }
@@ -35,8 +35,8 @@ podTemplate(
           script {
             sh "sleep 600"
             sh '''
-            /kaniko/executor --dockerfile `pwd`/Dockerfile \
-                             --context `pwd` \
+            /kaniko/executor --dockerfile `pwd`/playjenkins/Dockerfile \
+                             --context `pwd`/playjenkins \
                              --destination=image --no-push
             '''
             
