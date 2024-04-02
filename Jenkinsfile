@@ -19,12 +19,6 @@ podTemplate(
   '''
 ){
 
-pipeline {
-
-  options {
-    ansiColor('xterm')
-  }
-
   node(POD_LABEL){
     stage('Kaniko Build & Push Image') {
       steps {
