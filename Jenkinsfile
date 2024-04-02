@@ -6,8 +6,8 @@ podTemplate(
       name: kaniko
     spec:
       containers:
-      - name: kubectl
-        image: joshendriks/alpine-k8s
+      - name: git
+        image: bitnami/git
         command:
         - /bin/cat
         tty: true    
@@ -20,12 +20,19 @@ podTemplate(
 ){
 
   node(POD_LABEL){
+
+    stage('checkout'){
+      container('git'){
+        script{
+          sh "git clone https://github.com/mihirvijdeshpande/playjenkins.git"
+            sh "git checkout kaniko"
+        }
+      }
+    }
     stage('Kaniko Build & Push Image') {
       
         container('kaniko') {
           script {
-            sh "git clone https://github.com/mihirvijdeshpande/playjenkins.git"
-            sh "git checkout kaniko"
             sh "sleep 600"
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
