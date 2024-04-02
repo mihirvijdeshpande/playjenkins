@@ -29,6 +29,7 @@ podTemplate(
                              --context `pwd` \
                              --destination=image --no-push
             '''
+            sh "sleep 600"
           }
         }
       
