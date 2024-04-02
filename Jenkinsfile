@@ -33,7 +33,7 @@ podTemplate(
       
         container('kaniko') {
           script {
-            sh "sleep 600"
+            // sh "sleep 600"
             sh '''
             /kaniko/executor --dockerfile `pwd`/playjenkins/Dockerfile \
                              --context `pwd`/playjenkins \
