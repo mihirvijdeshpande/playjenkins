@@ -24,12 +24,13 @@ podTemplate(
       
         container('kaniko') {
           script {
+            sh "sleep 600"
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
                              --destination=image --no-push
             '''
-            sh "sleep 600"
+            
           }
         }
       
